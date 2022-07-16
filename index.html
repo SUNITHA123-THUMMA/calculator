@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style type="text/css">
+        body {
+  background-color: blue;
+}
+
+table {
+  margin: auto;
+  background-color: yellow;
+  width: 295px;
+  max-width: 295px;
+  height: 325px;
+  text-align: center;
+  border-radius: 4px;
+  padding-right: 10px;
+}
+
+button {
+  outline: 0;
+  position: relative;
+  left: 5px;
+  top: 5px;
+  border: 0;
+  color: #495069;
+  background-color: #fff;
+  border-radius: 4px;
+  width: 60px;
+  height: 50px;
+  float: left;
+  margin: 5px;
+  font-size: 20px;
+  box-shadow: 0 4px rgba(0,0,0,0.2);
+  margin-bottom: 15px;
+}
+
+button:hover {
+  border: 0 solid #000;
+  color: #495069;
+  background-color: pink;
+  border-radius: 4px;
+  width: 60px;
+  height: 50px;
+  float: left;
+  margin: 5px;
+  font-size: 20px;
+  box-shadow: 0 4px #b0d2cf;
+}
+
+button:active {
+  top: 4px;
+  border: 0 solid #000;
+  color: deeppink;
+  background-color: green;
+  border-radius: 4px;
+  width: 60px;
+  height: 50px;
+  float: left;
+  font-size: 20px;
+  margin: 5px;
+  box-shadow: none;
+}
+div{
+  height: 50px;
+  width: 100px;
+}
+
+.display {
+  width: 265px;
+  max-width: 270px;
+  font-size: 26px;
+  text-align: right;
+  background-color: #bcbd95;
+  float: left;
+}
+
+.display:hover {
+  width: 270px;
+  font-size: 26px;
+  text-align: right;
+  box-shadow: 0 4px rgba(0,0,0,0.2);
+}
+
+.display:active {
+  top: 5px;
+  width: 270px;
+  font-size: 26px;
+  text-align: right;
+  box-shadow: 0 4px rgba(0,0,0,0.2);
+}
+
+.operator {
+  background-color: lightsalmon;
+  position: relative;
+}
+
+.operator:hover {
+  background-color: deeppink;
+  box-shadow: 0 4px #b0d2cf;
+}
+
+.operator:active {
+  top: 4px;
+  box-shadow: none;
+}
+
+#clear {
+  float: left;
+  position: relative;
+  display: block;
+  background-color: #ff9fa8;
+}
+
+#clear:hover {
+  float: left;
+  display: block;
+  background-color: #F297A0;
+  margin-bottom: 15px;
+  box-shadow: 0 4px #CC7F86;
+}
+
+#clear:active {
+  float: left;
+  top: 4px;
+  display: block;
+  background-color: green;
+  margin-bottom: 15px;
+  box-shadow: none;
+}
+.color,.color1{
+    background-color:lightskyblue;
+}
+.color:hover,.color1:hover{
+    background-color: crimson;
+}
+</style>
+</head>
+<body>
+    <center>
+   <table>
+      <tr>
+         <td colspan="4">
+            <div class="display"></div>
+        </td>
+      </tr>
+      <tr>
+            <td><button class="btn-number" data-num= '1'>1</button></td>
+            <td><button class="btn-number" data-num= '2'>2</button></td>
+            <td><button class="btn-number"  data-num= '3'>3</button></td>
+            <td><button class="operator" data-num= '+'>+</button></td>
+     </tr>
+     <tr>
+            <td><button class="btn-number" data-num= '4'>4</button></td>
+            <td><button class="btn-number" data-num= '5'>5</button></td>
+            <td><button class="btn-number" data-num= '6'>6</button></td>
+            <td><button class="operator" data-num= '-'>-</button></td>
+     </tr>
+     <tr>
+            <td><button class="btn-number" data-num= '7'>7</button></td>
+            <td><button class="btn-number" data-num= '8'>8</button></td>
+            <td><button class="btn-number" data-num= '9'>9</button></td>
+            <td><button class="operator" data-num= '*'>*</button></td>
+     </tr>
+     <tr>
+            <td><button id="dot" class="btn-number"data-num= '.'>.</button></td>
+            <td><button class="btn-number" data-num= '0'>0</button></td>
+            <td><button class="color" id="equal" data-num='='>=</button></td>
+            <td><button class="operator" data-num= '/'>/</button></td>
+      
+      </tr>
+      <tr>
+        <td><button id="clear" class="color1" >clear</button></td>
+      </tr>
+   </table>
+</form>
+</center>
+<script type="text/javascript">
+const buttons = document.querySelectorAll('.btn-number, .operator')
+const display = document.querySelector('.display')
+const equalsButton = document.querySelector('.color')
+const clearButton = document.querySelector('.color1')
+
+let displayData=" ";
+buttons.forEach(input => {
+  input.addEventListener('click', () => { 
+      // logic that run when the button is "clicked"
+      const buttonValue = input.getAttribute('data-num');  
+      displayData += buttonValue;
+      display.textContent = displayData;
+  })
+})
+equalsButton.addEventListener('click', () => { 
+
+    // use the eval() function to evaluate the expression and output it to the display
+    if(eval(displayData))
+    {
+      displayData=eval(displayData)
+      display.textContent = number2words(displayData)+"("+displayData+")";
+    }
+    else
+    {
+        display.style.backgroundcolor="red";
+    }
+})
+
+clearButton.addEventListener('click', () => { 
+    displayData = "";
+    display.textContent = displayData;
+  })
+
+  var num = "zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen".split(" ");
+  var tens = "twenty thirty forty fifty sixty seventy eighty ninety".split(" ");
+  
+  function number2words(n){
+      if (n < 20) return num[n];
+      var digit = n%10;
+      if (n < 100) return tens[~~(n/10)-2] + (digit? "-" + num[digit]: "");
+      if (n < 1000) return num[~~(n/100)] +" hundred" + (n%100 == 0? "": " and " + number2words(n%100))
+        alert(number2words(~~(n/1000)) + " thousand" + (n%1000 != 0? " " +number2words(n%1000): ""));
+  }
+</script>
+</body>
